@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import MagicDropzone from 'react-magic-dropzone';
 
 class App extends Component {
   render() {
