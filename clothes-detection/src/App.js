@@ -66,10 +66,32 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>Hi, I am react app.</h1>
+      <div className="Dropzone-page">
+        {this.state.model ? (
+          <MagicDropzone
+            className="Dropzone"
+            accept="image/jpeg, image/png, .jpg, .jpeg, .png"
+            multiple={false}
+            onDrop={this.onDrop}
+          >
+            <div className="Dropzone-content">
+              {this.state.preview ? (
+                <img 
+                  alt="upload preview"
+                  className="Dropzone-img"
+                  src={this.state.preview}
+                />
+              ) : (
+                "Choose or drop a file"
+              )}
+              <canvas id="canvas" />
+            </div>
+          </MagicDropzone> 
+        ) : (
+          <div className="Dropzone">Loading model</div>
+        )}
       </div>
-    )
+    );
   }
 }
 
