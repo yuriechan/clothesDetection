@@ -2,6 +2,41 @@ import React, {Component} from 'react';
 import './App.css';
 import MagicDropzone from 'react-magic-dropzone';
 
+function getImageAttributes(userImage="https://www.converse.com/dw/image/v2/BCZC_PRD/on/demandware.static/-/Sites-cnv-master-catalog/default/dw2a253cb0/images/a_107/162065C_A_107X1.jpg") {
+  const yurieApiKey = 'IzaSyCc2ZRO2cPmW50mHI8SDG1okNRzDo33gAU';
+  const majorApiKey = 'AIzaSyB_LRUShuGlrxDwNvR9FBsyyiMUUGXZTb0';
+  const url = `https://vision.googleapis.com/v1/images:annotate?alt=json&key=${majorApiKey}`;
+  const requestParams = {
+    "requests": [
+      {
+        "image": {
+          "source": {
+            "imageUri": userImage
+          }
+        },
+        "features": [
+          {
+            "maxResults": 0,
+            "type": "LABEL_DETECTION"
+          }
+        ]
+      }
+    ]
+  }
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(requestParams),
+  };
+  fetch(url, options)
+  .then(response => response.json())
+  .then(imageAttributes => {
+    console.log(imageAttributes);
+    // figure out how to pass imageAttributes out to the react components
+  })
+  .catch(error => error.log(error))
+}
+getImageAttributes();
+
 class App extends Component {
 
   // add data to manage inside this component (can mutate unlike props in functional component)
