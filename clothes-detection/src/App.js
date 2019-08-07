@@ -71,7 +71,7 @@ class App extends Component {
             accept="image/jpeg, image/png, .jpg, .jpeg, .png"
             multiple={false}
             onDrop={this.onDrop}
-            onDragEnd={imageUploaded(imageURL)}
+            onDragEnd={imageUploaded(this.state.preview)}
           >
             <div className="Dropzone-content">
               {this.state.preview ? (
@@ -95,9 +95,16 @@ class App extends Component {
 }
 
 // access state property inside App Class after the class is declared
-let imageURL = new App().state.preview;
+  // remove this variable because it can only access to the original state, not the updated state
+  // let imageURL = new App().state.preview;
 
+// if no image was uploaded, do not hit the API
+  // else, hit the API to produce label
 function imageUploaded (url) {
-  console.log('I am the function');
+  if (url == false) {
+    return;
+  } else {
+    console.log(url + 'I am true')
+  }
 }
 export default App;
