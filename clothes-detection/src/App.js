@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import MagicDropzone from 'react-magic-dropzone';
 
-function getImageAttributes(userImage="https://www.converse.com/dw/image/v2/BCZC_PRD/on/demandware.static/-/Sites-cnv-master-catalog/default/dw2a253cb0/images/a_107/162065C_A_107X1.jpg") {
+function getImageAttributes(imageUri="https://www.converse.com/dw/image/v2/BCZC_PRD/on/demandware.static/-/Sites-cnv-master-catalog/default/dw2a253cb0/images/a_107/162065C_A_107X1.jpg") {
   const yurieApiKey = 'IzaSyCc2ZRO2cPmW50mHI8SDG1okNRzDo33gAU';
   const majorApiKey = 'AIzaSyB_LRUShuGlrxDwNvR9FBsyyiMUUGXZTb0';
   const url = `https://vision.googleapis.com/v1/images:annotate?alt=json&key=${majorApiKey}`;
@@ -11,7 +11,7 @@ function getImageAttributes(userImage="https://www.converse.com/dw/image/v2/BCZC
       {
         "image": {
           "source": {
-            "imageUri": userImage
+            "imageUri": imageUri
           }
         },
         "features": [
@@ -35,7 +35,7 @@ function getImageAttributes(userImage="https://www.converse.com/dw/image/v2/BCZC
   })
   .catch(error => error.log(error))
 }
-getImageAttributes();
+
 
 class App extends Component {
 
@@ -94,17 +94,13 @@ class App extends Component {
   }
 }
 
-// access state property inside App Class after the class is declared
-  // remove this variable because it can only access to the original state, not the updated state
-  // let imageURL = new App().state.preview;
-
 // if no image was uploaded, do not hit the API
   // else, hit the API to produce label
-function imageUploaded (url) {
-  if (url == false) {
+function imageUploaded (uri) {
+  if (uri == false) {
     return;
   } else {
-    console.log(url + 'I am true')
+    getImageAttributes(uri);
   }
 }
 export default App;
