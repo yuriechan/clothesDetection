@@ -71,6 +71,7 @@ class App extends Component {
             accept="image/jpeg, image/png, .jpg, .jpeg, .png"
             multiple={false}
             onDrop={this.onDrop}
+            onDragEnd={imageUploaded(imageURL)}
           >
             <div className="Dropzone-content">
               {this.state.preview ? (
@@ -93,4 +94,10 @@ class App extends Component {
   }
 }
 
+// access state property inside App Class after the class is declared
+let imageURL = new App().state.preview;
+
+function imageUploaded (url) {
+  console.log('I am the function');
+}
 export default App;
