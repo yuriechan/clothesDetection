@@ -62,6 +62,24 @@ class App extends Component {
     })
   }
 
+  // convert local file => blob => base 64 (when uploaded image is local)
+  convertBase64 = (localFile) => {
+  fetch(localFile)
+  .then(function(response) {
+    return response.blob()
+  })
+  .then(function(blob) {
+    let reader = new FileReader(); 
+    reader.readAsDataURL(blob);
+    reader.onloadend = function () {
+      let rawBase64data = reader.result;
+      // remove the header string of base 64 data
+      let finalBase64data = rawBase64data.substr(rawBase64data.indexOf(',') + 1);
+    }
+  })
+  .catch(error => error.log(error))
+  };
+
   render() {
     return (
       <div className="Dropzone-page">
@@ -71,7 +89,7 @@ class App extends Component {
             accept="image/jpeg, image/png, .jpg, .jpeg, .png"
             multiple={false}
             onDrop={this.onDrop}
-            onDragEnd={imageUploaded(this.state.preview)}
+            onDragEnd={imageUploaded(this.convertBase64(this.state.preview))}
           >
             <div className="Dropzone-content">
               {this.state.preview ? (
