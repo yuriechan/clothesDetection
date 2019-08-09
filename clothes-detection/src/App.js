@@ -78,6 +78,7 @@ class App extends Component {
       // remove the header string of base 64 data
       let finalBase64data = rawBase64data.substr(rawBase64data.indexOf(',') + 1);
       console.log(finalBase64data);
+      getImageAttributes(finalBase64data);
       // if return finalBase64data here, no one is listening 
     }
   })
