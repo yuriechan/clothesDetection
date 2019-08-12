@@ -91,7 +91,7 @@ class App extends Component {
             accept="image/jpeg, image/png, .jpg, .jpeg, .png"
             multiple={false}
             onDrop={this.onDrop}
-            onDragEnd={imageUploaded(this.convertBase64(this.state.preview))}
+            onDragEnd={this.convertBase64(this.state.preview)}
           >
             <div className="Dropzone-content">
               {this.state.preview ? (
@@ -114,13 +114,4 @@ class App extends Component {
   }
 }
 
-// if no image was uploaded, do not hit the API
-  // else, hit the API to produce label
-function imageUploaded (uri) {
-  if (uri == false) {
-    return;
-  } else {
-    getImageAttributes(uri);
-  }
-}
 export default App;
