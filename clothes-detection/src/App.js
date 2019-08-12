@@ -5,7 +5,7 @@ import MagicDropzone from 'react-magic-dropzone';
 function getImageAttributes(imageUri) {
   const yurieApiKey = 'IzaSyCc2ZRO2cPmW50mHI8SDG1okNRzDo33gAU';
   const majorApiKey = 'AIzaSyB_LRUShuGlrxDwNvR9FBsyyiMUUGXZTb0';
-  const url = `https://vision.googleapis.com/v1/images:annotate?alt=json&key=${majorApiKey}`;
+  const url = `https://vision.googleapis.com/v1/images:annotate?alt=json&key=${yurieApiKey}`;
   const requestParams = {
     "requests": [
       {
