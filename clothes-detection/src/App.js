@@ -3,7 +3,7 @@ import './App.css';
 import MagicDropzone from 'react-magic-dropzone';
 
 function getImageAttributes(imageUri) {
-  const yurieApiKey = 'IzaSyCc2ZRO2cPmW50mHI8SDG1okNRzDo33gAU';
+  const yurieApiKey = 'AIzaSyCc2ZRO2cPmW50mHI8SDG1okNRzDo33gAU';
   const majorApiKey = 'AIzaSyB_LRUShuGlrxDwNvR9FBsyyiMUUGXZTb0';
   const url = `https://vision.googleapis.com/v1/images:annotate?alt=json&key=${yurieApiKey}`;
   const requestParams = {
@@ -31,13 +31,17 @@ function getImageAttributes(imageUri) {
   fetch(url, options)
   .then(response => response.json())
   .then(imageAttributes => {
-    console.log(imageAttributes);
     // figure out how to pass imageAttributes out to the react components
+    let labelArr = imageAttributes.responses[0].labelAnnotations;
+    console.log(labelArr);
   })
   .catch(error => error.log(error))
 }
 
 
+// function renderImageResults() {
+
+// }
 class App extends Component {
 
   // add data to manage inside this component (can mutate unlike props in functional component)
