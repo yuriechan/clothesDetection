@@ -34,7 +34,7 @@ function getImageAttributes(imageUri) {
     // figure out how to pass imageAttributes out to the react components
     console.log(makeClothesLabel(imageAttributes));
   })
-  .catch(error => error.log(error))
+  .catch(error => console.error(error))
 }
 
 function makeClothesLabel (obj) {
