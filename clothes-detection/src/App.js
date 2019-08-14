@@ -89,7 +89,7 @@ class App extends Component {
       getImageAttributes(finalBase64data);
     }
   })
-  .catch(error => error.log(error))
+  .catch(error => console.log(error))
   }
 
   render() {
