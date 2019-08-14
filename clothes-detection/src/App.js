@@ -32,16 +32,22 @@ function getImageAttributes(imageUri) {
   .then(response => response.json())
   .then(imageAttributes => {
     // figure out how to pass imageAttributes out to the react components
-    let labelArr = imageAttributes.responses[0].labelAnnotations;
-    console.log(labelArr);
+    console.log(makeClothesLabel(imageAttributes));
   })
   .catch(error => error.log(error))
 }
 
+function makeClothesLabel (obj) {
+  let resultArr = obj.responses[0].labelAnnotations;
+  let labelArr = [];
+  resultArr.forEach(function(result){
+    let label = result.description;
+    labelArr.push(label);
+  })
+  let labelString = labelArr.join();
+  return labelString;
+}
 
-// function renderImageResults() {
-
-// }
 class App extends Component {
 
   // add data to manage inside this component (can mutate unlike props in functional component)
