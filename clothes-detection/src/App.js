@@ -32,20 +32,22 @@ function getImageAttributes(imageUri) {
   .then(response => response.json())
   .then(imageAttributes => {
     // figure out how to pass imageAttributes out to the react components
-    console.log(makeClothesLabel(imageAttributes));
+    const labelAnnotations = imageAttributes.responses[0].labelAnnotations;
+    if (labelAnnotations.length) {
+      const labels = makeClothesLabel(labelAnnotations);
+      console.log(labels);
+    }
   })
   .catch(error => console.error(error))
 }
 
-function makeClothesLabel (obj) {
-  let resultArr = obj.responses[0].labelAnnotations;
+function makeClothesLabel(labelAnnotations) {
   let labelArr = [];
-  resultArr.forEach(function(result){
-    let label = result.description;
+  labelAnnotations.forEach(function(labelAnnotation){
+    let label = labelAnnotations.description;
     labelArr.push(label);
-  })
-  let labelString = labelArr.join();
-  return labelString;
+  });
+  return labelArr;
 }
 
 class App extends Component {
