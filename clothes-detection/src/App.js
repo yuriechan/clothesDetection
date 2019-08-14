@@ -40,6 +40,9 @@ function getImageAttributes(imageUri) {
 function makeClothesLabel (obj) {
   let resultArr = obj.responses[0].labelAnnotations;
   let labelArr = [];
+  if (resultArr === undefined) {
+    return false;
+  }
   resultArr.forEach(function(result){
     let label = result.description;
     labelArr.push(label);
