@@ -40,6 +40,7 @@ function getImageAttributes(imageUri) {
     const labelAnnotations = imageAttributes.responses[0].labelAnnotations;
     if (labelAnnotations.length) {
       const labels = makeClothesLabel(labelAnnotations);
+      findClothesMatch(labels);
       console.log(labels);
     }
   })
@@ -53,6 +54,25 @@ function makeClothesLabel(labelAnnotations) {
     labelArr.push(label);
   });
   return labelArr;
+}
+
+function findClothesMatch(labels) {
+  const db = getDB();
+  // match labels to db clothing articles
+}
+
+function getDB() {
+  const db = [
+    {
+      gender: "m", // male
+      category: "shirt", // shirt
+      subCategory: ['tshirt', 'crew neck'], // ['tshirt', 'crew neck']
+      color: ["white"], // ['red', 'white']
+      dataUri: "", // base64 encoded image
+      dataUrl: "/images/white-tshirt.jpg" // url of image
+    }
+  ];
+  return db;
 }
 
 class App extends Component {
