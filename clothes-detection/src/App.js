@@ -31,7 +31,12 @@ function getImageAttributes(imageUri) {
   fetch(url, options)
   .then(response => response.json())
   .then(imageAttributes => {
-    // figure out how to pass imageAttributes out to the react components
+    console.log(imageAttributes.constructor === Array);
+    console.log(imageAttributes);
+    // assumes the response will return labelAnnotation
+    // if response is error obj or labelAnnotation array 
+    // if the response is array && length is more than 0
+    // response could be array object 
     const labelAnnotations = imageAttributes.responses[0].labelAnnotations;
     if (labelAnnotations.length) {
       const labels = makeClothesLabel(labelAnnotations);
