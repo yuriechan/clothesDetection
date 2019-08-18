@@ -31,14 +31,11 @@ function getImageAttributes(imageUri) {
   fetch(url, options)
   .then(response => response.json())
   .then(imageAttributes => {
-    console.log(imageAttributes.constructor === Array);
-    console.log(imageAttributes);
-    // assumes the response will return labelAnnotation
-    // if response is error obj or labelAnnotation array 
-    // if the response is array && length is more than 0
-    // response could be array object 
+    // valid return value : {labelAnnotations: [{}, {}, {}]
+    // invalide return value : {error: {object}}
     const labelAnnotations = imageAttributes.responses[0].labelAnnotations;
-    if (labelAnnotations.length) {
+    // if property key is error, labelAnnotations will return undefined, which will be converted to false in conditional.
+    if (labelAnnotations) {
       const labels = makeClothesLabel(labelAnnotations);
       findClothesMatch(labels);
       console.log(labels);
@@ -50,7 +47,7 @@ function getImageAttributes(imageUri) {
 function makeClothesLabel(labelAnnotations) {
   let labelArr = [];
   labelAnnotations.forEach(function(labelAnnotation){
-    let label = labelAnnotations.description;
+    let label = labelAnnotation.description;
     labelArr.push(label);
   });
   return labelArr;
