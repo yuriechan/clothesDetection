@@ -37,7 +37,8 @@ function getImageAttributes(imageUri) {
     // if property key is error, labelAnnotations will return undefined, which will be converted to false in conditional.
     if (labelAnnotations) {
       const labels = makeClothesLabel(labelAnnotations);
-      findClothesMatch(labels);
+      const matchedLabels = findClothesMatch(labels);
+      populateClothesMatch(matchedLabels);
       console.log(labels);
     }
   })
@@ -71,17 +72,20 @@ function findClothesMatch(labelArr) {
               // compare the target label to each item inside the array
               if (labelArr[i] == attributeValueArr[index][k]) {
                 // push to matched array
-                matchedArr.push(attributeValueArr[index][k]);
+                // matchedArr.push(attributeValueArr[index][k]);
+                matchedArr.push(j);
               }
             }
           } 
           // when item is not array
           else if (labelArr[i] == attributeValueArr[index]) {
-            matchedArr.push(attributeValueArr[index]);
+            // matchedArr.push(attributeValueArr[index]);
+            matchedArr.push(j);
           }
         }
     }
   }
+  console.log(matchedArr);
   return matchedArr;
 }
 
@@ -145,6 +149,7 @@ class App extends Component {
 
   render() {
     return (
+    <div>
       <div className="Dropzone-page">
         {this.state.model ? (
           <MagicDropzone
@@ -171,6 +176,8 @@ class App extends Component {
           <div className="Dropzone">Loading model</div>
         )}
       </div>
+      <div id="Results__container" />
+  </div>
     );
   }
 }
