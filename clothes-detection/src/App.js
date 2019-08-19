@@ -55,7 +55,13 @@ function makeClothesLabel(labelAnnotations) {
 
 function findClothesMatch(labels) {
   const db = getDB();
-  // match labels to db clothing articles
+  console.log(db);
+  // match labels to db clothing articles //
+  // get a set of labels in array
+  // compare each labels with every attribute of clothes article 
+    // if the attribute match with the label, break out of loop
+    // get the index number of clothes article, push to empty array
+  // populate the view with dataUrl || dataUri with each index number pushed to the empty array 
 }
 
 function getDB() {
