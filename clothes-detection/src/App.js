@@ -90,11 +90,6 @@ function findClothesMatch(labelArr) {
 }
 
 function populateClothesMatch(matchedArr) {
-  // populate HTML with item that has matched label //
-  // retrieve array with index number that points to the array with matched label
-  // create HTML element
-  // pass URI/URL to the src attribute of the element 
-  // append to the parent container (Results__container)
   const db = getDB();
   let resultsContainer = document.getElementById("Results__container");
   for (let i = 0, n = matchedArr.length; i < n; i++){
