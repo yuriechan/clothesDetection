@@ -47,21 +47,62 @@ function getImageAttributes(imageUri) {
 function makeClothesLabel(labelAnnotations) {
   let labelArr = [];
   labelAnnotations.forEach(function(labelAnnotation){
-    let label = labelAnnotation.description;
+    let label = labelAnnotation.description.toLowerCase();
     labelArr.push(label);
   });
   return labelArr;
 }
 
-function findClothesMatch(labels) {
+function findClothesMatch(labelArr) {
   const db = getDB();
-  console.log(db);
+  console.log(db.length);
   // match labels to db clothing articles //
   // get a set of labels in array
   // compare each labels with every attribute of clothes article 
     // if the attribute match with the label, break out of loop
     // get the index number of clothes article, push to empty array
   // populate the view with dataUrl || dataUri with each index number pushed to the empty array 
+  let matchedArr = [];
+  // iterate each label inside its array 
+  for (let i = 0, n = labelArr.length; i < n; i ++) {
+    console.log(`this is ${i}th label in the array`);
+    // iterate each item in db 
+    for (let j = 0, m = db.length; j < m; j++) {
+      console.log(`this is ${j}th item in db`);
+        // assign all value of property in an array 
+        let attributeValueArr = Object.values(db[j]);
+        // retrieve each item in attributeValueArr
+        console.log(`this is all the attribute inside the item: ${attributeValueArr}`);
+        for (let index in attributeValueArr) {
+          // when item is an array
+          if (attributeValueArr[index].constructor === Array) {
+            console.log(`${attributeValueArr[index]} was an array type.`)
+            // iterate each item inside the array
+            for (let k = 0, o = attributeValueArr[index].length; k < o; k++) {
+              // compare the target label to each item inside the array
+              console.log(`this is the length of array item: ${attributeValueArr[index]},${attributeValueArr[index].length}`);
+              console.log(`this is the target label: ${labelArr[i]}`);
+              console.log(`this is the array item(when k=${k}): ${attributeValueArr[index][k]}`);
+              if (labelArr[i] == attributeValueArr[index][k]) {
+                // push to matched array
+                console.log(`${attributeValueArr[index][k]} matched with the target label`)
+                matchedArr.push(attributeValueArr[index][k]);
+              }
+
+            }
+          } 
+          // when item is not array
+          // [ex. ["white"] == "white"] 
+          else if (labelArr[i] == attributeValueArr[index]) {
+            console.log(`${labelArr[i]}`);
+            console.log(attributeValueArr[index]);
+            matchedArr.push(attributeValueArr[index]);
+          }
+
+        }
+    }
+  }
+  return matchedArr;
 }
 
 function getDB() {
