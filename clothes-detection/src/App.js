@@ -112,6 +112,30 @@ function getDB() {
       color: ["white"], // ['red', 'white']
       dataUri: "", // base64 encoded image
       dataUrl: "/images/white-tshirt.jpg" // url of image
+    },
+    {
+      gender: "f", 
+      category: "skirt", 
+      subCategory: ['tennis skirt', 'Pleated skirt'], 
+      color: ["white", "vanilla"], 
+      dataUri: "", 
+      dataUrl: "/images/white_skirt_1.jpg"
+    },
+    {
+      gender: "f", 
+      category: "skirt", 
+      subCategory: ['tennis skirt', 'white camo'], 
+      color: ["white"], 
+      dataUri: "", 
+      dataUrl: "/images/white_skirt_2.jpg" 
+    },
+    {
+      gender: "f",
+      category: "skirt", 
+      subCategory: ['tennis skirt', 'Sports wear'], 
+      color: ["white"], 
+      dataUri: "", 
+      dataUrl: "/images/white_skirt_3.jpg"
     }
   ];
   return db;
