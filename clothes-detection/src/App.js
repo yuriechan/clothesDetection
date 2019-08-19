@@ -89,6 +89,25 @@ function findClothesMatch(labelArr) {
   return matchedArr;
 }
 
+function populateClothesMatch(matchedArr) {
+  // populate HTML with item that has matched label //
+  // retrieve array with index number that points to the array with matched label
+  // create HTML element
+  // pass URI/URL to the src attribute of the element 
+  // append to the parent container (Results__container)
+  const db = getDB();
+  let resultsContainer = document.getElementById("Results__container");
+  for (let i = 0, n = matchedArr.length; i < n; i++){
+    let resultsChild = document.createElement("DIV");
+    resultsChild.id = (`Results__child-${i}`);
+    let img = document.createElement("IMG");
+    img.id = (`Results__child--img-${i}`);
+    img.src = db[matchedArr[i]].dataUrl || db[matchedArr[i]].dataUri;
+    resultsChild.append(img);
+    resultsContainer.append(resultsChild);
+  }
+}
+
 function getDB() {
   const db = [
     {
