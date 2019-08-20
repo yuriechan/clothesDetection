@@ -55,38 +55,34 @@ function makeClothesLabel(labelAnnotations) {
 }
 
 function findClothesMatch(labelArr) {
-  const db = getDB();
-  let matchedArr = [];
-  // iterate each label inside its array 
-  for (let i = 0, n = labelArr.length; i < n; i ++) {
-    // iterate each item in db 
-    for (let j = 0, m = db.length; j < m; j++) {
-      // assign all value of property in an array 
-      let attributeValueArr = Object.values(db[j]);
-        // retrieve each item in attributeValueArr
-        for (let index in attributeValueArr) {
-          // when item is an array
-          if (attributeValueArr[index].constructor === Array) {
-            // iterate each item inside the array
-            for (let k = 0, o = attributeValueArr[index].length; k < o; k++) {
-              // compare the target label to each item inside the array
-              if (labelArr[i] == attributeValueArr[index][k]) {
-                // push to matched array
-                // matchedArr.push(attributeValueArr[index][k]);
-                matchedArr.push(j);
-              }
+
+const db = getDB();
+let matchedArr = [];
+
+for (let i = 0, n = db.length; i < n; i++) {
+    let attributeArr = Object.values(db[i]);
+    let onceMatched = false;
+    for (let j = 0, m = labelArr.length; j < m; j++) {
+        if (onceMatched) {break;}
+        for (let k = 0, o = attributeArr.length; k < o; k++) {
+            if (onceMatched) {break;}
+            if (attributeArr[k].constructor === Array) {
+                for (let l = 0, p = attributeArr[k].length; l < p; l++) {
+                    if (attributeArr[k][l] === labelArr[j]) {
+                        matchedArr.push(i);
+                        onceMatched = true;
+                    }
+                }
             }
-          } 
-          // when item is not array
-          else if (labelArr[i] == attributeValueArr[index]) {
-            // matchedArr.push(attributeValueArr[index]);
-            matchedArr.push(j);
-          }
+            if (attributeArr[k] === labelArr[j]) {
+                matchedArr.push(i);
+                onceMatched = true;
+            }
         }
     }
-  }
-  console.log(matchedArr);
-  return matchedArr;
+}
+console.log(matchedArr);
+return matchedArr;
 }
 
 function populateClothesMatch(matchedArr) {
