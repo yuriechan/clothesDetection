@@ -88,14 +88,17 @@ return matchedArr;
 function populateClothesMatch(matchedArr) {
   const db = getDB();
   let resultsContainer = document.getElementById("Results__container");
+  let resultsWrapper = document.getElementById("Results__wrapper");
   for (let i = 0, n = matchedArr.length; i < n; i++){
     let resultsChild = document.createElement("DIV");
-    resultsChild.id = (`Results__child-${i}`);
+    resultsChild.id = (`Results__child__${i}`);
+    resultsChild.className = (`Results__child`);
     let img = document.createElement("IMG");
     img.id = (`Results__child--img-${i}`);
+    img.className = ('Results__child--image');
     img.src = db[matchedArr[i]].dataUrl || db[matchedArr[i]].dataUri;
     resultsChild.append(img);
-    resultsContainer.append(resultsChild);
+    resultsWrapper.append(resultsChild);
   }
 }
 
@@ -210,7 +213,10 @@ class App extends Component {
           <div className="Dropzone">Loading model</div>
         )}
       </div>
-      <div id="Results__container" />
+      <div id="Results__container">
+        <div id="Results__wrapper">
+        </div>
+      </div>
   </div>
     );
   }
