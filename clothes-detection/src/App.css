@@ -84,13 +84,13 @@ body {
 .Results__child {
   width: 45%;
   height: auto;
-  border: 3px solid #979797;
-  border-radius: 8px;
+  padding: 5px
 }
 
 .Results__child--image {
   object-fit: cover;
   height: 100%;
   width: 100%;
+  border-radius: 10px;
 }
 
