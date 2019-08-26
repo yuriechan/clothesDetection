@@ -37,7 +37,8 @@ function getImageAttributes(imageUri) {
     // if property key is error, labelAnnotations will return undefined, which will be converted to false in conditional.
     if (labelAnnotations) {
       const labels = makeClothesLabel(labelAnnotations);
-      findClothesMatch(labels);
+      const matchedLabels = findClothesMatch(labels);
+      populateClothesMatch(matchedLabels);
       console.log(labels);
     }
   })
@@ -47,15 +48,55 @@ function getImageAttributes(imageUri) {
 function makeClothesLabel(labelAnnotations) {
   let labelArr = [];
   labelAnnotations.forEach(function(labelAnnotation){
-    let label = labelAnnotation.description;
+    let label = labelAnnotation.description.toLowerCase();
     labelArr.push(label);
   });
   return labelArr;
 }
 
-function findClothesMatch(labels) {
+function findClothesMatch(labelArr) {
+
+const db = getDB();
+let matchedArr = [];
+
+for (let i = 0, n = db.length; i < n; i++) {
+    let attributeArr = Object.values(db[i]);
+    let onceMatched = false;
+    for (let j = 0, m = labelArr.length; j < m; j++) {
+        if (onceMatched) {break;}
+        for (let k = 0, o = attributeArr.length; k < o; k++) {
+            if (onceMatched) {break;}
+            if (attributeArr[k].constructor === Array) {
+                for (let l = 0, p = attributeArr[k].length; l < p; l++) {
+                    if (attributeArr[k][l] === labelArr[j]) {
+                        matchedArr.push(i);
+                        onceMatched = true;
+                    }
+                }
+            }
+            if (attributeArr[k] === labelArr[j]) {
+                matchedArr.push(i);
+                onceMatched = true;
+            }
+        }
+    }
+}
+console.log(matchedArr);
+return matchedArr;
+}
+
+function populateClothesMatch(matchedArr) {
   const db = getDB();
-  // match labels to db clothing articles
+  let resultsContainer = document.getElementById("Results__container");
+  for (let i = 0, n = matchedArr.length; i < n; i++){
+    let resultsChild = document.createElement("DIV");
+    resultsChild.id = (`Results__child-${i}`);
+    let img = document.createElement("IMG");
+    img.id = (`Results__child--img-${i}`);
+    img.src = db[matchedArr[i]].dataUrl || db[matchedArr[i]].dataUri;
+    resultsChild.append(img);
+    resultsContainer.append(resultsChild);
+  }
 }
 
 function getDB() {
@@ -67,6 +108,30 @@ function getDB() {
       color: ["white"], // ['red', 'white']
       dataUri: "", // base64 encoded image
       dataUrl: "/images/white-tshirt.jpg" // url of image
+    },
+    {
+      gender: "f", 
+      category: "skirt", 
+      subCategory: ['tennis skirt', 'Pleated skirt'], 
+      color: ["white", "vanilla"], 
+      dataUri: "", 
+      dataUrl: "/images/white_skirt_1.jpg"
+    },
+    {
+      gender: "f", 
+      category: "skirt", 
+      subCategory: ['tennis skirt', 'white camo'], 
+      color: ["white"], 
+      dataUri: "", 
+      dataUrl: "/images/white_skirt_2.jpg" 
+    },
+    {
+      gender: "f",
+      category: "skirt", 
+      subCategory: ['tennis skirt', 'Sports wear'], 
+      color: ["white"], 
+      dataUri: "", 
+      dataUrl: "/images/white_skirt_3.jpg"
     }
   ];
   return db;
@@ -118,6 +183,7 @@ class App extends Component {
 
   render() {
     return (
+    <div>
       <div className="Dropzone-page">
         {this.state.model ? (
           <MagicDropzone
@@ -144,6 +210,8 @@ class App extends Component {
           <div className="Dropzone">Loading model</div>
         )}
       </div>
+      <div id="Results__container" />
+  </div>
     );
   }
 }
