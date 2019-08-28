@@ -18,13 +18,10 @@ body {
 }
 
 .Dropzone-img {
-  max-width: calc(100vw - 60px);
-  max-height: calc(100vw - 60px);
-  width: 448px;
-  height: 448px;
+  width: 100%;
   border: thin solid rgba(64, 64, 64, 0.15);
   border-radius: 4px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .Dropzone {
@@ -34,25 +31,23 @@ body {
   cursor: pointer;
   border: thin dashed #c2c2c2;
   background: #fcfcfc;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vw - 40px);
-  width: 468px;
-  height: 468px;
-  padding: 10px;
+  height: 30vh;
   border-radius: 5px;
-  position: relative;
 }
 
 .Dropzone-content {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 30vh;
+  width: 30vh;
 }
 
 .Dropzone-page {
   display: flex;
   align-content: center;
   justify-content: center;
+  height: 30vh;
 }
 
 #canvas {
@@ -62,9 +57,10 @@ body {
 }
 
 #Results__container {
-    display: flex;
-    align-content: center;
-    justify-content: center;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 70vh;
 }
 
 #Results__wrapper {
@@ -72,19 +68,20 @@ body {
   justify-content: space-around;
   border: thin dashed #c2c2c2;
   background: #fcfcfc;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 40px);
-  width: 468px;
-  height: auto;
+  height: 70vh;
   flex-direction: row;
-  align-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
+  width: 30vh;
+  background-color: aquamarine;
+  align-content: baseline;
+  overflow: scroll;
 }
 
 .Results__child {
-  width: 45%;
+  width: 49%;
   height: auto;
-  padding: 5px
+  padding: 4px;
 }
 
 .Results__child--image {
